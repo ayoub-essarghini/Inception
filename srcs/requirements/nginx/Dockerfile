@@ -11,7 +11,6 @@ RUN apk update \
 
 COPY /tools/script.sh /
 COPY /conf /etc/nginx
-COPY /index.html /var/www/html
 
 RUN chmod 777 /script.sh
 
