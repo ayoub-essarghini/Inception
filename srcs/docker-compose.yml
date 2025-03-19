@@ -1,14 +1,4 @@
 services:
-  nginx:
-    build: requirements/nginx
-    container_name: nginx
-    env_file:
-      - .env
-    ports:
-      - 443:443
-    networks:
-      - inception-network
-    restart: always
   mariadb:
     build: requirements/mariadb
     container_name: mariadb
@@ -20,6 +10,36 @@ services:
       - inception-network
     volumes:
       - DB:/var/lib/mysql
+    restart: always
+
+  wordpress:
+    build: requirements/wordpress
+    container_name: wordpress
+    env_file:
+      - .env
+    ports:
+      - 9000:9000
+    networks:
+      - inception-network
+    volumes:
+      - WordPress:/var/www/html
+    depends_on:
+      - mariadb
+    restart: always
+
+  nginx:
+    build: requirements/nginx
+    container_name: nginx
+    env_file:
+      - .env
+    ports:
+      - 443:443
+    volumes:
+      - WordPress:/var/www/html
+    networks:
+      - inception-network
+    depends_on:
+      - wordpress
     restart: always
 
 networks:
@@ -35,3 +55,10 @@ volumes:
       type: none
       o: bind
       device: /home/roboto/data/DB/
+  WordPress:
+    name: WordPress
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/roboto/data/WordPress/
