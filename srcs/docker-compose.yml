@@ -1,0 +1,37 @@
+services:
+  nginx:
+    build: requirements/nginx
+    container_name: nginx
+    env_file:
+      - .env
+    ports:
+      - 443:443
+    networks:
+      - inception-network
+    restart: always
+  mariadb:
+    build: requirements/mariadb
+    container_name: mariadb
+    env_file:
+      - .env
+    ports:
+      - 3306:3306
+    networks:
+      - inception-network
+    volumes:
+      - DB:/var/lib/mysql
+    restart: always
+
+networks:
+  inception-network:
+    driver: bridge
+    name: inception
+
+volumes:
+  DB:
+    name: DB
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/roboto/data/DB/
