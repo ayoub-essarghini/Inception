@@ -3,7 +3,7 @@ DOCKER_COMPOSE := docker-compose -f $(COMPOSE_PATH)
 
 .PHONY: all up up-d down build clean fclean logs ps re
 
-all: build up 
+all: build up-d
 
 up: 
 	$(DOCKER_COMPOSE) up

@@ -41,6 +41,18 @@ services:
     depends_on:
       - wordpress
     restart: always
+  redis:
+    container_name: redis
+    build: requirements/bonus/redis
+    networks:
+      - inception-network
+    volumes:
+      - WordPress:/var/www/html
+    env_file:
+      - .env
+    ports:
+      - "6379:6379"
+    restart: always
 
 networks:
   inception-network:
