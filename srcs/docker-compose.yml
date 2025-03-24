@@ -53,7 +53,30 @@ services:
     ports:
       - "6379:6379"
     restart: always
-
+  app:
+    build: requirements/bonus/app
+    container_name: app
+    networks:
+      - inception-network
+    volumes:
+      - ./requirements/bonus/app/tools/src:/usr/share/nginx/html
+    ports:
+      - "8080:80"
+    restart: always
+  ftp:
+    build: requirements/bonus/ftp
+    container_name: ftp
+    networks:
+      - inception-network
+    env_file:
+      - .env
+    volumes:
+      - WordPress:/ftp:rw
+    privileged: true
+    ports:
+      - "21:21"
+      - "21100-21110:21100-21110"
+    restart: always
 networks:
   inception-network:
     driver: bridge
