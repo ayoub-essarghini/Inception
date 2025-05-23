@@ -15,6 +15,8 @@ down:
 	$(DOCKER_COMPOSE) down
 
 build:
+	sudo mkdir -p /home/aes-sarg/data/DB/
+	sudo mkdir -p /home/aes-sarg/data/WordPress/
 	$(DOCKER_COMPOSE) build
 
 clean:

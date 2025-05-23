@@ -71,11 +71,31 @@ services:
     env_file:
       - .env
     volumes:
-      - WordPress:/ftp:rw
+      - WordPress:/ftp
     privileged: true
     ports:
       - "21:21"
       - "21100-21110:21100-21110"
+    restart: always
+  adminer:
+    build: requirements/bonus/adminer
+    container_name: adminer
+    networks:
+      - inception-network
+    env_file:
+      - .env
+    ports:
+      - 8888:8888
+    restart: always
+  portainer:
+    build: requirements/bonus/portainer
+    container_name: portainer
+    networks:
+      - inception-network
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 9001:9000
     restart: always
 networks:
   inception-network:
@@ -89,11 +109,11 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/roboto/data/DB/
+      device: /home/aes-sarg/data/DB/
   WordPress:
     name: WordPress
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/roboto/data/WordPress/
+      device: /home/aes-sarg/data/WordPress/

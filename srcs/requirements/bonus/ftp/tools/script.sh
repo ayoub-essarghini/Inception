@@ -12,9 +12,12 @@ echo "pasv_enable=YES" >> /etc/vsftpd/vsftpd.conf
 echo "pasv_min_port=21100" >> /etc/vsftpd/vsftpd.conf
 echo "pasv_max_port=21110" >> /etc/vsftpd/vsftpd.conf
 echo "seccomp_sandbox=NO" >> /etc/vsftpd/vsftpd.conf
+echo "write_enable=YES" >> /etc/vsftpd/vsftpd.conf
 
-chmod 755 /ftp
+
+chmod 777 /ftp
+echo "gives user all the perms"
 chown -R ${FTP_USER}:${FTP_USER} /ftp
 
 echo "Starting FTP server ..."
-/usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf
+exec /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf

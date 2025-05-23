@@ -6,10 +6,10 @@ chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
 # Increase PHP memory limit
-echo "memory_limit = 256M" >> /etc/php82/php.ini
+echo "memory_limit = 256M" >> /etc/php83/php.ini
 
 # Configure PHP-FPM to listen on the correct address
-sed -i 's/listen = 127.0.0.1:9000/listen = 9000/g' /etc/php82/php-fpm.d/www.conf
+sed -i 's/listen = 127.0.0.1:9000/listen = 9000/g' /etc/php83/php-fpm.d/www.conf
 
 # Change to the WordPress directory
 cd /var/www/html
@@ -57,4 +57,4 @@ fi
 chown -R nobody:nobody /var/www
 
 # Start PHP-FPM
-exec /usr/sbin/php-fpm82 -F
+exec /usr/sbin/php-fpm83 -F

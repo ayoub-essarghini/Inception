@@ -1,15 +1,15 @@
-FROM alpine:3.19
+FROM alpine:3.20
 
 RUN apk update && apk add --no-cache \
-    php82 \
-    php82-fpm \
-    php82-mysqli \
-    php82-xml \
-    php82-mbstring \
-    php82-phar \
-    php82-opcache \
-    php82-json \
-    php82-session \
+    php83 \
+    php83-fpm \
+    php83-mysqli \
+    php83-xml \
+    php83-mbstring \
+    php83-phar \
+    php83-opcache \
+    php83-json \
+    php83-session \
     wget \
     unzip
 
