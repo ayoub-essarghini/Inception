@@ -72,7 +72,7 @@ services:
       - .env
     volumes:
       - WordPress:/ftp
-    privileged: true
+    # privileged: true
     ports:
       - "21:21"
       - "21100-21110:21100-21110"
@@ -86,14 +86,20 @@ services:
       - .env
     ports:
       - 8888:8888
+    depends_on:
+      - mariadb
     restart: always
   portainer:
     build: requirements/bonus/portainer
+    env_file: .env
     container_name: portainer
     networks:
       - inception-network
+    depends_on:
+      - nginx
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - portainer:/data
     ports:
       - 9001:9000
     restart: always
@@ -117,3 +123,4 @@ volumes:
       type: none
       o: bind
       device: /home/aes-sarg/data/WordPress/
+  portainer:

@@ -5,6 +5,8 @@ RUN apk update && apk add --no-cache \
 
 WORKDIR /usr/share/adminer/
 
-RUN curl -L https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php -o adminer.php
+RUN curl -L https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php -o index.php && \
+    mkdir -p adminer && \
+    mv index.php adminer/
 
-CMD [ "php", "-S", "0.0.0.0:8888", "adminer.php" ]
+CMD [ "php", "-S", "0.0.0.0:8888", "-t", "adminer" ]

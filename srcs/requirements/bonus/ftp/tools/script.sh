@@ -1,6 +1,7 @@
 #! /bin/sh
 
 adduser -D -h /ftp ${FTP_USER}
+echo "user creds : ${FTP_USER}:${FTP_PASSWORD}" 
 echo "${FTP_USER}:${FTP_PASSWORD}" | chpasswd
 
 sed -i "s|anonymous_enable=YES|anonymous_enable=NO|g" /etc/vsftpd/vsftpd.conf
@@ -16,7 +17,6 @@ echo "write_enable=YES" >> /etc/vsftpd/vsftpd.conf
 
 
 chmod 777 /ftp
-echo "gives user all the perms"
 chown -R ${FTP_USER}:${FTP_USER} /ftp
 
 echo "Starting FTP server ..."
